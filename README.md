@@ -5,7 +5,7 @@
 Get your api token from [openweathermap.org](https://openweathermap.org/price)
 Clone the repo
    ```sh
-   git clone d
+   git clone https://github.com/MarTE3N/Weather_APP
    ```
 Install packages
    ```sh
