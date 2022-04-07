@@ -15,6 +15,5 @@ Enter your token in `config.js`
 
 
 
-###Inspiration Disigne: https://dribbble.com/shots/15736238-Weather-App-Design-Exploration 
-
+###Inspiration: https://dribbble.com/shots/15736238-Weather-App-Design-Exploration
 ###Icons: https://github.com/isneezy/open-weather-icons
