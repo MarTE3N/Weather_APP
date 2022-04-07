@@ -7,7 +7,15 @@ import * as Location from 'expo-location';
 import {useFonts} from "expo-font";
 import {LinearGradient} from "expo-linear-gradient";
 import Icons from "./assets/icons/main"
-import {AntDesign, Entypo, EvilIcons, FontAwesome5, Ionicons, MaterialIcons} from "@expo/vector-icons";
+import {
+    AntDesign,
+    Entypo,
+    EvilIcons,
+    FontAwesome5,
+    Ionicons,
+    MaterialCommunityIcons,
+    MaterialIcons
+} from "@expo/vector-icons";
 
 function getDirection(degrees) {
     if (degrees >= 0 && degrees < 90) {
@@ -30,8 +38,8 @@ function GenerateTemp ({temp, style={}, styleC={}}){
 }
 function GenerateText ({textOne, textTwo, icon}){
     return <View style={{flexDirection: "row"}}>
-        {icon && icon}
-        <Text style={[styles.text, {fontFamily: "SF-Pro-Display-Bold"}, icon ? {marginLeft: 1}: {}]}>{textOne}:</Text>
+        {icon && <View style={{height: 40, width: 45, justifyContent: "center", alignItems: "center"}}>{icon}</View>}
+        <Text style={[styles.text, {fontFamily: "SF-Pro-Display-Bold"}]}>{textOne}:</Text>
         <Text style={[styles.text, {color: "#f5c112", marginLeft: 5}]}>{textTwo}</Text>
     </View>
 }
@@ -46,8 +54,8 @@ function GenerateCard (props) {
         {props.children}
     </View>
 }
-function convertMeterToKm(meter){
-    return Math.round(meter/1000)
+function convertMeterToKm(meters) {
+    return (meters / 1000).toFixed(1);
 }
 function convertMeterSecToKmH(meterSec){
     return Math.round(meterSec*3.6)
@@ -112,7 +120,7 @@ export default function App() {
         let date = new Date();
         let day = date.getDate();
         let month = date.getMonth() + 1;
-        if (!h) return `${days[date.getDay()]} ,${day} ${months[month]}`
+        if (!h) return `${days[date.getDay()]}, ${day} ${months[month]}`
     }
 
     if (data && data.error) return <View style={[styles.container, {alignItems: 'center', justifyContent: 'center',}]}>
@@ -123,7 +131,7 @@ export default function App() {
     if (!isReady || !data || !fontsLoaded) return <AppLoading
         startAsync={fetchData}
         onFinish={() => setIsReady(true)}
-        onError={console.warn}
+        onError={e => setData({error: e.message})}
     />
 
 
@@ -155,12 +163,7 @@ export default function App() {
                     textTwo={data.weather[0].description}
                 />
                 <GenerateText
-                    icon={
-                        data.main.feels_like >= 15 ?
-                            <FontAwesome5 name="temperature-high" size={28} color="#f5c112" />
-                            :
-                            <FontAwesome5 name="temperature-low" size={28} color="#f5c112" />
-                    }
+                    icon={<MaterialCommunityIcons name="temperature-celsius" size={28} color="#f5c112"/>}
                     textOne={"Temp. odczuwalna"}
                     textTwo={`${data.main.feels_like}°C`}
                 />
